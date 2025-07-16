@@ -7,7 +7,19 @@ GET {{RestauSimplon_HostAddress}}/
 GET {{RestauSimplon_HostAddress}}/articles
 
 ###
+GET {{RestauSimplon_HostAddress}}/articles/disponible
 
-GET {{RestauSimplon_HostAddress}}/articles
+###
 
+
+POST {{RestauSimplon_HostAddress}}/articles
+Content-Type: application/json
+
+{
+  "nom":"Pizza Margharita",
+  "prix":11.50,
+  "categorie":"plat",
+  "description":"La plus simple et la plus élégante !",
+  "disponible":true
+}
 ###
