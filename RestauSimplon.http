@@ -1,0 +1,9 @@
+﻿@RestauSimplon_HostAddress = https://localhost:7287
+
+GET {{RestauSimplon_HostAddress}}/
+
+###
+
+GET {{RestauSimplon_HostAddress}}/articles
+
+###

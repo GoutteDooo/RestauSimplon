@@ -8,15 +8,17 @@ namespace RestauSimplon
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-            builder.Services.AddDbContext<RestaurantDb>(opt => opt.UseSqlite("data source = resto.db"));
+            builder.Services.AddDbContext<RestaurantDb>(opt => opt.UseSqlite("Data source=resto.db"));
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
             var app = builder.Build();
             //pipo
-            var articleItems = app.MapGroup("/articles");
-            var clientItems = app.MapGroup("/clients");
-            var commandeItems = app.MapGroup("/commandes");
-            
-            
+            RouteGroupBuilder articleItems = app.MapGroup("/articles");
+            RouteGroupBuilder clientItems = app.MapGroup("/clients");
+            RouteGroupBuilder commandeItems = app.MapGroup("/commandes");
+
+            articleItems.MapGet("", async (RestaurantDb db) =>
+                await db.Articles.ToListAsync());
+
 
             app.MapGet("/", () => "Hello World!");
 
