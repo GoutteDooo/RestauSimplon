@@ -11,7 +11,7 @@ namespace RestauSimplon
             builder.Services.AddDbContext<RestaurantDb>(opt => opt.UseInMemoryDatabase("RestaurantDb"));
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
             var app = builder.Build();
-
+            //pipo
             var articleItems = app.MapGroup("/articles");
             var clientItems = app.MapGroup("/clients");
             var commandeItems = app.MapGroup("/commandes");
