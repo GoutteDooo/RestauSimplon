@@ -2,16 +2,13 @@
 {
     public class Client
     {
-        private int id_client;
-        private string nom;
-        private string prenom;
-        private string numero_rue;
-        private string nom_rue;
-        private string ville;
-        private int code_postal;
-        private int telephone;
-
-
-
+        public int Id;
+        public string Nom;
+        public string Prenom;
+        public string Numero_rue;
+        public string Nom_rue;
+        public string Ville;
+        public int Code_postal;
+        public int Telephone;
     }
 }

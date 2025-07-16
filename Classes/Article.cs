@@ -2,11 +2,11 @@
 {
     public class Article
     {
-        private int id_article;
-        private string nom;
-        private decimal prix;
-        private Categorie categorie;
-        private string? description;
-        private bool disponible;
+        public int Id { get; set; }
+        public string Nom { get; set; }
+        public decimal Prix { get; set; }
+        public Categorie Categorie { get; set; }
+        public string? Description { get; set; }
+        public bool Disponible { get; set; }
     }
 }

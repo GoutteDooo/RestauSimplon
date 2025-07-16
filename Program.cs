@@ -8,7 +8,7 @@ namespace RestauSimplon
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-            builder.Services.AddDbContext<RestaurantDb>(opt => opt.UseInMemoryDatabase("RestaurantDb"));
+            builder.Services.AddDbContext<RestaurantDb>(opt => opt.UseSqlite("data source = resto.db"));
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
             var app = builder.Build();
             //pipo

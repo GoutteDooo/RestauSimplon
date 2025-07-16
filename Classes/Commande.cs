@@ -2,9 +2,9 @@
 {
     public class Commande
     {
-        private int id_commande;
-        private DateTime date_commande;
-        private TypeCommande type_commande;
-        private bool est_termine;
+        public int Id { get; set; }
+        public DateTime DateCommande { get; set; }
+        public TypeCommande TypeCommande { get; set; }
+        public bool EstTermine { get; set; }
     }
 }
