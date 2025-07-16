@@ -1,6 +1,6 @@
 ﻿namespace RestauSimplon.Classes
 {
-    public class Commandes
+    public class Commande
     {
         private int id_commandes;
         private DateTime date_commandes;
