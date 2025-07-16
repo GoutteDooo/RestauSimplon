@@ -1,6 +1,6 @@
 ﻿namespace RestauSimplon.Classes
 {
-    public class Articles
+    public class Article
     {
         private int id_articles;
         private string nom;
