@@ -2,7 +2,7 @@
 {
     public class Article
     {
-        private int id_articles;
+        private int id_article;
         private string nom;
         private decimal prix;
         private Categorie categorie;
