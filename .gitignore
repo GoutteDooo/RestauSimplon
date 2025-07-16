@@ -364,3 +364,9 @@ FodyWeavers.xsd
 
 # Idea jetbrains
 .idea/
+
+# Migrations et bdd
+Migrations
+Migrations/*
+resto.db
+resto.db*
