@@ -13,5 +13,5 @@ public class ArticleDto
     public bool Disponible { get; set; }
 
     // Propriété pour afficher le nom de la catégorie
-    public string NomCategorie => Categorie.ToString();
+    // public string NomCategorie => Categorie.ToString();
 }
