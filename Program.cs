@@ -23,6 +23,7 @@ namespace RestauSimplon
             app.MapArticlesEndpoints();
             app.MapClientsEndpoints();
             app.MapCommandesEndpoints();
+            app.MapUtilisateursEndpoints();
 
             app.MapGet("/", () => "Hello World!");
 
