@@ -10,8 +10,8 @@
         public int ClientId { get; set; } //FK vers Client
         public Client Client { get; set; }
         
-        //relation manyToMany (n, n) via table d'association Commandes_articles
-        public ICollection<Commandes_articles> Commandes_articles { get; set; } = new List<Commandes_articles>();
+        //relation manyToMany (n, n) via table d'association CommandesArticles
+        public ICollection<CommandeArticles> CommandeArticles { get; set; } = new List<CommandeArticles>();
         
     }
 }
