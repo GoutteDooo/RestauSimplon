@@ -13,10 +13,6 @@ namespace RestauSimplon
             builder.Services.AddDbContext<RestaurantDb>(opt => opt.UseSqlite("Data source=resto.db"));
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
             var app = builder.Build();
-            //pipo
-            RouteGroupBuilder articleItems = app.MapGroup("/articles");
-            RouteGroupBuilder clientItems = app.MapGroup("/clients");
-            RouteGroupBuilder commandeItems = app.MapGroup("/commandes");
 
             /* ROUTES */
 
