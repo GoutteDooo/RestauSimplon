@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using RestauSimplon.Data;
 using RestauSimplon.Classes;
+using RestauSimplon.Data;
+using RestauSimplon.Routes;
 
 namespace RestauSimplon
 {
@@ -18,25 +19,15 @@ namespace RestauSimplon
             RouteGroupBuilder commandeItems = app.MapGroup("/commandes");
 
             /* ROUTES */
-            
-            // -- GET --
-            // ---------
 
-            articleItems.MapGet("", async (RestaurantDb db) =>
-                await db.Articles.ToListAsync());
-            articleItems.MapGet("/disponible", async (RestaurantDb db) =>
-                await db.Articles.Where(t => t.Disponible).ToListAsync());
+            app.MapArticlesEndpoints();
+            app.MapClientsEndpoints();
+            app.MapCommandesEndpoints();
+
 
             // -- POST --
             // ----------
 
-            articleItems.MapPost("", async (Article article, RestaurantDb db) =>
-            {
-                db.Articles.Add(article);
-                await db.SaveChangesAsync();
-
-                return Results.Created($"/articles/{article.Id}", article);
-            });
 
 
             app.MapGet("/", () => "Hello World!");
