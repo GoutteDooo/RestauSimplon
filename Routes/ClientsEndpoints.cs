@@ -40,6 +40,7 @@ namespace RestauSimplon.Routes
 
             // DELETE : /clients/{id}
             // Supprime le client passé en paramètre
+            // Ne retourne aucun contenu (code 204)
             group.MapDelete("{id}", async Task<IResult> (int id, RestaurantDb db) =>
             {
                 if (await db.Clients.FindAsync(id) is Client client)
@@ -51,6 +52,27 @@ namespace RestauSimplon.Routes
 
                 return TypedResults.NotFound();
             });
+
+            // PUT : /clients/{id}
+            // Modifier des informations pour le client passé en paramètre
+            // Ne retourne aucun contenu (code 204)
+            group.MapPut("/{id}", async Task<IResult> (int id, Client clientInput, RestaurantDb db) =>
+            {
+                if (await db.Clients.FindAsync(id) is Client client)
+                {
+                    client.Nom = clientInput.Nom;
+                    client.Prenom = clientInput.Prenom;
+                    client.NumeroRue = clientInput.NumeroRue;
+                    client.NomRue = clientInput.NomRue;
+                    client.Ville = clientInput.Ville;
+                    client.CodePostal = clientInput.CodePostal;
+                    client.Telephone = clientInput.Telephone;
+                    await db.SaveChangesAsync();
+                    return TypedResults.NoContent();
+                }
+                return TypedResults.NotFound();
+            });
+
 
             return routes;
         }
