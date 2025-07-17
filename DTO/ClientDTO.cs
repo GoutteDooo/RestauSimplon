@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 using RestauSimplon.Classes;
 namespace RestauSimplon.DTO;
 public class ClientDto
