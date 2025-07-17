@@ -22,7 +22,7 @@ namespace RestauSimplon.Routes
             //GET : /clients/{id}
             // Obtient le client trouvé par son ID (s'il existe)
             group.MapGet("/{id}", async Task<IResult> (int id, RestaurantDb db) =>
-            { 
+            {
                 return await db.Clients.FindAsync(id) is Client client
                 ? TypedResults.Ok(new ClientDto(client))
                 : TypedResults.NotFound();
@@ -38,7 +38,19 @@ namespace RestauSimplon.Routes
                 return Results.Created($"/clients/{client.Id}", client);
             });
 
+            // DELETE : /clients/{id}
+            // Supprime le client passé en paramètre
+            group.MapDelete("{id}", async Task<IResult> (int id, RestaurantDb db) =>
+            {
+                if (await db.Clients.FindAsync(id) is Client client)
+                {
+                    db.Clients.Remove(client);
+                    await db.SaveChangesAsync();
+                    return TypedResults.NoContent();
+                }
 
+                return TypedResults.NotFound();
+            });
 
             return routes;
         }

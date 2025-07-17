@@ -44,3 +44,7 @@ Content-Type: application/json
 GET {{RestauSimplon_HostAddress}}/clients/{{id}}
 
 ###
+
+DELETE {{RestauSimplon_HostAddress}}/clients/{{id}}
+
+###
