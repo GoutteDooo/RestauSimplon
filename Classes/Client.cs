@@ -9,7 +9,7 @@
         public string Nom_rue { get; set; }
         public string Ville { get; set; }
         public int Code_postal { get; set; }
-        public int Telephone { get; set; }
+        public string Telephone { get; set; }
         
         //Relation oneToMany (1, n): un client peut avoir plusieurs commandes
         public ICollection<Commande> Commandes { get; set; } = new List<Commande>();
