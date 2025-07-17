@@ -40,7 +40,7 @@ Content-Type: application/json
 }
 ###
 
-@id=3
+@id=2
 GET {{RestauSimplon_HostAddress}}/clients/{{id}}
 
 ###
@@ -68,6 +68,34 @@ POST {{RestauSimplon_HostAddress}}/commande-articles
 Content-Type: application/json
 {
   "idCommande":1,
-  "idArticles":[1,2,4]
+  "idArticles":[1,2,3]
+}
+###
+
+GET {{RestauSimplon_HostAddress}}/commandes
+
+###
+
+POST {{RestauSimplon_HostAddress}}/commandes
+Content-Type: application/json
+{
+  "typeCommande":"livraison",
+  "clientId":1
+}
+###
+
+GET {{RestauSimplon_HostAddress}}/commandes/{{id}}
+
+###
+
+DELETE {{RestauSimplon_HostAddress}}/commandes/{{id}}/supprimer
+
+###
+
+PUT {{RestauSimplon_HostAddress}}/commandes/{{id}}/terminee
+Content-Type: application/json
+{
+  "typeCommande":"surPlace",
+  "clientId":1
 }
 ###

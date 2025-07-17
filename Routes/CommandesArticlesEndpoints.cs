@@ -1,4 +1,5 @@
-﻿using RestauSimplon.Classes;
+﻿using Microsoft.EntityFrameworkCore;
+using RestauSimplon.Classes;
 using RestauSimplon.Data;
 using RestauSimplon.DTO;
 
@@ -6,7 +7,7 @@ namespace RestauSimplon.Routes
 {
     public static class CommandesArticlesEndpoints
     {
-        public static IEndpointRouteBuilder MapCommandesArticlesEndpoints(this IEndpointRouteBuilder routes)
+        public static IEndpointRouteBuilder MapCommandeArticlesEndpoints(this IEndpointRouteBuilder routes)
         {
             var group = routes.MapGroup("/commande-articles");
 
@@ -19,13 +20,11 @@ namespace RestauSimplon.Routes
              */
             group.MapPost("", async (CommandeArticlesDto dto, RestaurantDb db) =>
             {
-                // Si le DTO ne contient aucun article
                 if (dto.IdArticles == null || dto.IdArticles.Count == 0)
                     return Results.BadRequest("La liste des articles est vide.");
 
-                var commandeArticles = dto.IdArticles.Select((idArticle, index) => new CommandeArticles
+                var commandeArticles = dto.IdArticles.Select(idArticle => new CommandeArticles
                 {
-                    // Id est auto-généré par la base car c’est une clé auto-incrémentée
                     IdCommande = dto.IdCommande,
                     IdArticle = idArticle
                 }).ToList();
@@ -35,6 +34,7 @@ namespace RestauSimplon.Routes
 
                 return Results.Created($"/commande-articles/commande/{dto.IdCommande}", commandeArticles);
             });
+
 
             return routes;
         }

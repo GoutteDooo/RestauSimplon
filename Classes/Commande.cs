@@ -1,9 +1,11 @@
-﻿namespace RestauSimplon.Classes
+﻿using System.Text.Json.Serialization;
+namespace RestauSimplon.Classes
 {
     public class Commande
     {
         public int Id { get; set; }
         public DateTime DateCommande { get; set; }
+        [JsonConverter(typeof(JsonStringEnumConverter))]
         public TypeCommande TypeCommande { get; set; }
         public bool EstTermine { get; set; }
         
