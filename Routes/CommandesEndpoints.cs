@@ -28,6 +28,8 @@ namespace RestauSimplon.Routes
                 : TypedResults.NotFound();
             });
 
+            // PUT : /{id}/terminee
+            // -- Modifie le champ "EstTermine" sur true
             group.MapPut("/{id}/terminee", async Task<IResult> (int id, RestaurantDb db) =>
             {
                 var commande = await db.Commandes.FindAsync(id);

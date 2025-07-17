@@ -3,6 +3,6 @@
 public enum TypeCommande
 {
     Livraison,
-    Sur_Place,
-    A_Emporter
+    SurPlace,
+    AEmporter
 }
