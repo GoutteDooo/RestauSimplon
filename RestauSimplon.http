@@ -30,17 +30,17 @@ GET {{RestauSimplon_HostAddress}}/clients
 POST {{RestauSimplon_HostAddress}}/clients
 Content-Type: application/json
 {
-  "nom":"Dupont",
-  "prenom":"Jean",
-  "numeroRue":"13",
-  "nomRue":"Rue de la Paix",
-  "ville":"Paris",
-  "codePostal":75000,
-  "telephone":"+33612345678"
+  "nom":"Dumont",
+  "prenom":"Jeanne",
+  "numeroRue":"13B",
+  "nomRue":"Rue de la Guerre",
+  "ville":"Sirap",
+  "codePostal":"57000",
+  "telephone":"+33687654321"
 }
 ###
 
-@id=1
+@id=2
 GET {{RestauSimplon_HostAddress}}/clients/{{id}}
 
 ###
