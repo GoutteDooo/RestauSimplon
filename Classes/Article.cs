@@ -12,8 +12,8 @@ namespace RestauSimplon.Classes
         public string? Description { get; set; }
         public bool Disponible { get; set; }
         
-        //relation manyToMany (n, n) via table d'association Commandes_articles
+        //relation manyToMany (n, n) via table d'association CommandeArticles
         //Utilisation d'ICollection pour meilleure flexibilité au niveau des données
-        public ICollection<Commandes_articles> Commandes_articles { get; set; } = new List<Commandes_articles>();
+        public ICollection<CommandeArticles> CommandeArticles { get; set; } = new List<CommandeArticles>();
     }
 }
