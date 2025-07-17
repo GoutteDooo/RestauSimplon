@@ -23,3 +23,19 @@ Content-Type: application/json
   "disponible":true
 }
 ###
+GET {{RestauSimplon_HostAddress}}/clients
+
+###
+
+POST {{RestauSimplon_HostAddress}}/clients
+Content-Type: application/json
+{
+  "nom":"Dupont",
+  "prenom":"Jean",
+  "numeroRue":"13",
+  "nomRue":"Rue de la Paix",
+  "ville":"Paris",
+  "codePostal":75000,
+  "telephone":"+33612345678"
+}
+###
