@@ -1,6 +1,6 @@
 ﻿namespace RestauSimplon.Classes;
 
-public class Commandes_articles
+public class CommandeArticles
 {
     public int Id { get; set; }
     public Commande Commande { get; set; }
