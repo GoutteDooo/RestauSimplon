@@ -40,7 +40,26 @@ Content-Type: application/json
 }
 ###
 
-@id=2
+@id=3
 GET {{RestauSimplon_HostAddress}}/clients/{{id}}
+
+###
+
+DELETE {{RestauSimplon_HostAddress}}/clients/{{id}}
+
+###
+
+PUT {{RestauSimplon_HostAddress}}/clients/{{id}}
+Content-Type: application/json
+{
+  "id":3,
+  "nom":"Dupont",
+  "prenom":"Jean",
+  "numeroRue":"13A",
+  "nomRue":"Rue de la Paix",
+  "ville":"Paris",
+  "codePostal":"75000",
+  "telephone":"+3312345678"
+}
 
 ###
