@@ -24,12 +24,6 @@ namespace RestauSimplon
             app.MapClientsEndpoints();
             app.MapCommandesEndpoints();
 
-
-            // -- POST --
-            // ----------
-
-
-
             app.MapGet("/", () => "Hello World!");
 
             app.Run();
