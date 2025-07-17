@@ -39,3 +39,8 @@ Content-Type: application/json
   "telephone":"+33612345678"
 }
 ###
+
+@id=1
+GET {{RestauSimplon_HostAddress}}/clients/{{id}}
+
+###
