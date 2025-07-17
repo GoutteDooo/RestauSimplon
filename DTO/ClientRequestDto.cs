@@ -27,5 +27,6 @@ public class ClientRequestDto
     //non-nullable mais modifiable
     [Required(ErrorMessage = "Le numéro de téléphone est requis.")]
     [Phone(ErrorMessage = "Le format du numéro de téléphone n'est pas valide.")] // Validation de format de téléphone
-    public int Telephone { get; set; }  // ne serait-il pas mieux de transformer Telephone en type String ? on a pas besoin de faire de calculs sur le telephone et puis il y a la possibilité que les zeros initiaux soient perdus et ça créerait des soucis de formatage.
+    [StringLength(10, MinimumLength = 10, ErrorMessage = "Le nom de la ville doit avoir entre 2 et 100 caractères.")]
+    public string Telephone { get; set; }  // ne serait-il pas mieux de transformer Telephone en type String ? on a pas besoin de faire de calculs sur le telephone et puis il y a la possibilité que les zeros initiaux soient perdus et ça créerait des soucis de formatage.
 }
