@@ -72,3 +72,18 @@ RestauSimplon est un restaurant qui souhaite digitaliser la gestion de ses comma
    ```bash
    git clone https://github.com/GoutteDooo/restauSimplon.git
    cd restauSimplon
+   
+2. **Installer Dotnet EF de manière globale dans votre ordinateur**
+   ouvrez votre powershell ou CMD en administrateur et ajoutez cette ligne
+   ```powershell
+   dotnet tool install --global dotnet-ef
+3. **Creer la migration dans la console de la solution**
+   ```powershell
+   dotnet ef migrations add InitialCreate
+4. **Appliquer la migration afin qu'un fichier sqLite soit créé**
+   ```powershell
+   dotnet ef database update
+
+---
+
+Un fichier Restaurant.db sera ensuite créé après avoir appliqué la migration.
