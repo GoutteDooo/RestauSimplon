@@ -12,5 +12,17 @@ namespace RestauSimplon.Data
         public DbSet<Client> Clients => Set<Client>();
         public DbSet<Commande> Commandes => Set<Commande>();
         public DbSet<CommandeArticles> CommandeArticles => Set<CommandeArticles>();
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            // Ici tu ajoutes tes configurations
+            modelBuilder.Entity<Commande>()
+            .HasMany(c => c.CommandeArticles)
+            .WithOne()
+            .HasForeignKey("idCommande")
+            .OnDelete(DeleteBehavior.Cascade);
+        }
     }
 }

@@ -54,6 +54,13 @@ namespace RestauSimplon.Routes
                 if (client == null)
                     return TypedResults.NotFound();
 
+                // Vérifier que les articles existent
+                foreach(int idArticle in dto.IdArticles)
+                {
+                    if(await db.Articles.FindAsync(idArticle) == null)
+                        return TypedResults.NotFound();
+                }
+
                 /* La liste reçue par le DTO peut contenir plusieurs ids identique
                  * Par exemple:
                  * 
@@ -110,19 +117,34 @@ namespace RestauSimplon.Routes
 
                 await db.SaveChangesAsync();
 
-                return Results.Created($"/commandes/{commande.Id}", commande);
+                CommandeResponseDto response = new CommandeResponseDto
+                {
+                    Id = commande.Id,
+                    DateCommande = commande.DateCommande,
+                    TypeCommande = commande.TypeCommande,
+                    EstTermine = commande.EstTermine,
+                    ClientId = commande.ClientId,
+                    Articles = commande.CommandeArticles
+                        .Select(ca => new CommandeArticleDto
+                        {
+                            IdArticle = ca.IdArticle,
+                            Quantite = ca.Quantite
+                        }).ToList()
+                };
+
+                return Results.Created($"/commandes/{commande.Id}", response);
             });
 
             group.MapDelete("/{id}/supprimer", async Task<IResult> (int id, RestaurantDb db) =>
             {
-                var commande = await db.Commandes.FindAsync(id);
-                if (commande == null)
-                    return Results.NotFound();
+                if (await db.Commandes.FindAsync(id) is Commande commande)
+                {
+                    db.Commandes.Remove(commande);
+                    await db.SaveChangesAsync();
+                    return TypedResults.NoContent();
+                }
 
-                db.Commandes.Remove(commande);
-                await db.SaveChangesAsync();
-
-                return Results.NoContent();
+                return TypedResults.NotFound();
             });
 
             return routes;
