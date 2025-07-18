@@ -370,3 +370,4 @@ Migrations
 Migrations/*
 resto.db
 resto.db*
+db-password.txt
