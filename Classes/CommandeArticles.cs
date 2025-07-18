@@ -8,4 +8,5 @@ public class CommandeArticles
     //FK commande et article
     public int IdCommande { get; set; }
     public int IdArticle { get; set; }
+    public int Quantite { get; set; } // Quantité de l'article
 }

@@ -14,7 +14,7 @@ namespace RestauSimplon
             var builder = WebApplication.CreateBuilder(args);
 
             var password = File.ReadAllText("db-password.txt").Trim();
-            builder.Services.AddDbContext<RestaurantDb>(opt => opt.UseNpgsql($"Host=localhost;Database=restausimplon;Username=postgres;Password={password}"));
+            builder.Services.AddDbContext<RestaurantDb>(opt => opt.UseNpgsql($"Host=localhost;Port=5433;Database=restausimplon;Username=postgres;Password={password}"));
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen(c =>
@@ -54,7 +54,6 @@ namespace RestauSimplon
             app.MapArticlesEndpoints();
             app.MapClientsEndpoints();
             app.MapCommandesEndpoints();
-            app.MapCommandeArticlesEndpoints();
 
             app.MapGet("/", () => "Hello World!");
 
