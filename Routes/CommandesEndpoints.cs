@@ -135,7 +135,13 @@ namespace RestauSimplon.Routes
                 return Results.Created($"/commandes/{commande.Id}", response);
             });
 
-            group.MapDelete("/{id}/supprimer", async Task<IResult> (int id, RestaurantDb db) =>
+
+            /** /!\                                           /!\
+             * /!\ PROBLEME SUPPRESSION EN CASCADE A REGLER /!\
+             *  /!\                                          /!\
+             */
+
+         group.MapDelete("/{id}/supprimer", async Task<IResult> (int id, RestaurantDb db) =>
             {
                 if (await db.Commandes.FindAsync(id) is Commande commande)
                 {
