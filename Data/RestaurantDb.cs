@@ -5,12 +5,12 @@ namespace RestauSimplon.Data
 {
     public class RestaurantDb: DbContext
     {
-        public RestaurantDb(DbContextOptions<RestaurantDb> options) : base(options)
-        {
-        }
+        public RestaurantDb(DbContextOptions<RestaurantDb> options) : base(options) { }
+
         public DbSet<Article> Articles => Set<Article>();
         public DbSet<Client> Clients => Set<Client>();
         public DbSet<Commande> Commandes => Set<Commande>();
         public DbSet<CommandeArticles> CommandeArticles => Set<CommandeArticles>();
+        public DbSet<Utilisateur> Utilisateurs { get; set; }
     }
 }
