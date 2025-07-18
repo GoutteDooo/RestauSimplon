@@ -42,15 +42,75 @@ namespace RestauSimplon.Routes
                 return TypedResults.Ok(commande);
             });
 
-            group.MapPost("", async (Commande nouvelleCommande, RestaurantDb db) =>
+            /**
+             * POST : /commandes/
+             * Insère une nouvelle Commande dans la bdd
+             * Et insère le nombre de lignes correspondant au nombre d'articles de la commande dans CommandeArticles dans la bdd
+             */
+            group.MapPost("", async (CommandeDto dto, RestaurantDb db) =>
             {
-                nouvelleCommande.DateCommande = DateTime.Now;
-                nouvelleCommande.EstTermine = false;
+                // Vérifier si le client existe
+                Client? client = await db.Clients.FindAsync(dto.IdClient);
+                if (client == null)
+                    return TypedResults.NotFound();
 
-                db.Commandes.Add(nouvelleCommande);
+                /* La liste reçue par le DTO peut contenir plusieurs ids identique
+                 * Par exemple:
+                 * 
+                 *     idArticles = [1, 2, 2, 3, 5, 5, 5]
+                 * 
+                 * Dans ce cas, on va créer un dictionnaire avec pour clé l'id de l'article, 
+                 * et pour valeur la quantité
+                 * 
+                 * Dans notre exemple, ça donne :
+                 * 
+                 *      {
+                 *          ['1'}: 1,
+                 *          ['2'}: 2,
+                 *          ['3'}: 1,
+                 *          ['5'}: 3
+                 *      }
+                 *      
+                 * Une fois que c'est fait, on peut créer nos enregistrements pour la table CommandeArticles
+                 */
+
+                Dictionary<int, int> quantiteArticles = new();
+
+                // Insérer clés et valeurs
+                foreach (int idArticle in dto.IdArticles)
+                {
+                    if (!quantiteArticles.ContainsKey(idArticle))
+                        quantiteArticles[idArticle] = 0; // Initialise la clé à 0 pour éviter une Exception
+                    quantiteArticles[idArticle]++;
+                }
+
+                // On crée la nouvelle commande
+                Commande commande = new Commande
+                {
+                    DateCommande = DateTime.Now,
+                    TypeCommande = dto.Type,
+                    EstTermine = false,
+                    ClientId = dto.IdClient,
+                    Client = client,
+                    CommandeArticles = new List<CommandeArticles>()
+                };
+
+                // Et avec le dictionnaire, on peut créer la liste de CommandeArticles
+                foreach (KeyValuePair<int, int> quantiteArticle in quantiteArticles)
+                {
+                    // Crée une instance de CommandeArticles et l'ajoute à la ICollection de la commande
+                    commande.CommandeArticles.Add(new CommandeArticles
+                    {
+                        IdArticle = quantiteArticle.Key,
+                        Quantite = quantiteArticle.Value
+                    });
+                }
+
+                db.Commandes.Add(commande);
+
                 await db.SaveChangesAsync();
 
-                return Results.Created($"/commandes/{nouvelleCommande.Id}", nouvelleCommande);
+                return Results.Created($"/commandes/{commande.Id}", commande);
             });
 
             group.MapDelete("/{id}/supprimer", async Task<IResult> (int id, RestaurantDb db) =>

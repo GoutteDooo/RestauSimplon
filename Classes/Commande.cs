@@ -14,6 +14,5 @@ namespace RestauSimplon.Classes
         
         //relation manyToMany (n, n) via table d'association CommandesArticles
         public ICollection<CommandeArticles> CommandeArticles { get; set; } = new List<CommandeArticles>();
-        
     }
 }
