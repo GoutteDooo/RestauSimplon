@@ -43,7 +43,7 @@ namespace RestauSimplon.Routes
             });
 
             /**
-             * POST : /commandes/
+             * POST : /commandes
              * Insère une nouvelle Commande dans la bdd
              * Et insère le nombre de lignes correspondant au nombre d'articles de la commande dans CommandeArticles dans la bdd
              */
@@ -65,10 +65,10 @@ namespace RestauSimplon.Routes
                  * Dans notre exemple, ça donne :
                  * 
                  *      {
-                 *          ['1'}: 1,
-                 *          ['2'}: 2,
-                 *          ['3'}: 1,
-                 *          ['5'}: 3
+                 *          ['1']: 1,
+                 *          ['2']: 2,
+                 *          ['3']: 1,
+                 *          ['5']: 3
                  *      }
                  *      
                  * Une fois que c'est fait, on peut créer nos enregistrements pour la table CommandeArticles
@@ -84,15 +84,15 @@ namespace RestauSimplon.Routes
                     quantiteArticles[idArticle]++;
                 }
 
+                DateTime aujourdhui = DateTime.UtcNow;
                 // On crée la nouvelle commande
                 Commande commande = new Commande
                 {
-                    DateCommande = DateTime.Now,
+                    DateCommande = aujourdhui,
                     TypeCommande = dto.Type,
                     EstTermine = false,
                     ClientId = dto.IdClient,
-                    Client = client,
-                    CommandeArticles = new List<CommandeArticles>()
+                    Client = client
                 };
 
                 // Et avec le dictionnaire, on peut créer la liste de CommandeArticles
