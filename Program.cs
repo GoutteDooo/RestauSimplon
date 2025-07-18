@@ -12,7 +12,9 @@ namespace RestauSimplon
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-            builder.Services.AddDbContext<RestaurantDb>(opt => opt.UseSqlite("Data source=resto.db"));
+
+            var password = File.ReadAllText("db-password.txt").Trim();
+            builder.Services.AddDbContext<RestaurantDb>(opt => opt.UseNpgsql($"Host=localhost;Database=restausimplon;Username=postgres;Password={password}"));
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen(c =>
