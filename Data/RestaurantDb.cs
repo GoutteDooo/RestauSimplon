@@ -17,12 +17,11 @@ namespace RestauSimplon.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            // Ici tu ajoutes tes configurations
             modelBuilder.Entity<Commande>()
-            .HasMany(c => c.CommandeArticles)
-            .WithOne()
-            .HasForeignKey("idCommande")
-            .OnDelete(DeleteBehavior.Cascade);
+                .HasMany(c => c.CommandeArticles)
+                .WithOne()
+                .HasForeignKey("IdCommande")
+                .OnDelete(DeleteBehavior.SetNull);
         }
     }
 }

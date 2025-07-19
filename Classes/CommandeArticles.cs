@@ -6,7 +6,7 @@ public class CommandeArticles
     //public Commande Commande { get; set; }
     //public Article Article { get; set; }
     //FK commande et article
-    public int IdCommande { get; set; }
-    public int IdArticle { get; set; }
+    public int? IdCommande { get; set; } //nullable car possibilité de delete une commande de la bdd
+    public int? IdArticle { get; set; } // Nullable aussi car possibilité de delete un article de la bdd
     public int Quantite { get; set; } // Quantité de l'article
 }

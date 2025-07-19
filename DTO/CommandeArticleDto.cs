@@ -2,7 +2,7 @@
 {
     public class CommandeArticleDto
     {
-        public int IdArticle { get; set; }
+        public int? IdArticle { get; set; }
         public int Quantite { get; set; }
     }
 }
