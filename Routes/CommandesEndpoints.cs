@@ -46,7 +46,15 @@ namespace RestauSimplon.Routes
                             nom = c.Client.Nom,
                             prenom = c.Client.Prenom
                         },
-                        idArticles = c.CommandeArticles.Select(ca => ca.IdArticle).ToList()
+                        articles = c.CommandeArticles
+                            .Select(ca => new {
+                                idArticle = ca.IdArticle,
+                                nomArticle = ca.Article.Nom,
+                                prixArticle = ca.Article.Prix,
+                                quantite = ca.Quantite
+                            })
+                            .ToList(),
+                        prixTotal = c.CommandeArticles.Sum(ca => ca.Quantite * ca.Article.Prix)
                     })
                     .ToListAsync();
 
@@ -214,9 +222,18 @@ namespace RestauSimplon.Routes
                             nom = c.Client.Nom,
                             prenom = c.Client.Prenom
                         },
-                        idArticles = c.CommandeArticles.Select(ca => ca.IdArticle).ToList()
+                        articles = c.CommandeArticles
+                            .Select(ca => new {
+                                idArticle = ca.IdArticle,
+                                nomArticle = ca.Article.Nom,
+                                prixArticle = ca.Article.Prix,
+                                quantite = ca.Quantite
+                            })
+                            .ToList(),
+                        prixTotal = c.CommandeArticles.Sum(ca => ca.Quantite * ca.Article.Prix)
                     })
                     .ToListAsync();
+
                 return commandesNonLivrees.Count > 0 ? TypedResults.Ok(commandesNonLivrees) : TypedResults.NoContent();
             });
 

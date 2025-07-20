@@ -22,6 +22,13 @@ namespace RestauSimplon.Data
                 .WithOne()
                 .HasForeignKey("IdCommande")
                 .OnDelete(DeleteBehavior.SetNull);
+
+            modelBuilder.Entity<CommandeArticles>()
+                .HasOne(ca => ca.Article)
+                .WithMany()  // ou .WithMany(c => c.CommandeArticles) si tu as une collection
+                .HasForeignKey(ca => ca.IdArticle);
+
         }
+
     }
 }
