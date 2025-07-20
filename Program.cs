@@ -48,6 +48,19 @@ namespace RestauSimplon
             });
 
             var app = builder.Build();
+            using (var scope = app.Services.CreateScope())
+            {
+                var db = scope.ServiceProvider.GetRequiredService<RestaurantDb>();
+                db.Database.Migrate();
+
+                var seedPath = Path.Combine(AppContext.BaseDirectory, "Scripts", "seed.sql");
+                if (File.Exists(seedPath))
+                {
+                    var sql = File.ReadAllText(seedPath);
+                    db.Database.ExecuteSqlRaw(sql);
+                }
+            }
+
 
             if (app.Environment.IsDevelopment())
             { 
