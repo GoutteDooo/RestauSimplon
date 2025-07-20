@@ -48,7 +48,7 @@ namespace RestauSimplon.Routes
                         },
                         articles = c.CommandeArticles
                             .Select(ca => new {
-                                idArticle = ca.IdArticle,
+                                idArticle = ca.ArticleId,
                                 nomArticle = ca.Article.Nom,
                                 prixArticle = ca.Article.Prix,
                                 quantite = ca.Quantite
@@ -155,7 +155,7 @@ namespace RestauSimplon.Routes
                     // Crée une instance de CommandeArticles et l'ajoute à la ICollection de la commande
                     commande.CommandeArticles.Add(new CommandeArticles
                     {
-                        IdArticle = quantiteArticle.Key,
+                        ArticleId = quantiteArticle.Key,
                         Quantite = quantiteArticle.Value
                     });
                 }
@@ -174,7 +174,7 @@ namespace RestauSimplon.Routes
                     Articles = commande.CommandeArticles
                         .Select(ca => new CommandeArticleDto
                         {
-                            IdArticle = ca.IdArticle,
+                            IdArticle = ca.ArticleId,
                             Quantite = ca.Quantite
                         }).ToList()
                 };
@@ -224,7 +224,7 @@ namespace RestauSimplon.Routes
                         },
                         articles = c.CommandeArticles
                             .Select(ca => new {
-                                idArticle = ca.IdArticle,
+                                idArticle = ca.ArticleId,
                                 nomArticle = ca.Article.Nom,
                                 prixArticle = ca.Article.Prix,
                                 quantite = ca.Quantite

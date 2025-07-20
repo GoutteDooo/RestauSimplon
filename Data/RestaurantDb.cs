@@ -26,7 +26,7 @@ namespace RestauSimplon.Data
             modelBuilder.Entity<CommandeArticles>()
                 .HasOne(ca => ca.Article)
                 .WithMany()  // ou .WithMany(c => c.CommandeArticles) si tu as une collection
-                .HasForeignKey(ca => ca.IdArticle);
+                .HasForeignKey(ca => ca.ArticleId);
 
         }
 
