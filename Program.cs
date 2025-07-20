@@ -13,6 +13,20 @@ namespace RestauSimplon
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            // Ajout de CORS
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowFrontDev", policy =>
+                {
+                    policy
+                        .WithOrigins("http://localhost:8080")
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
+                });
+            });
+
+            builder.Services.AddControllers();
+
             var password = File.ReadAllText("db-password.txt").Trim();
             builder.Services.AddDbContext<RestaurantDb>(opt => opt.UseNpgsql($"Host=localhost;Port=5433;Database=restausimplon;Username=postgres;Password={password}"));
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
@@ -55,7 +69,14 @@ namespace RestauSimplon
             app.MapClientsEndpoints();
             app.MapCommandesEndpoints();
 
-            app.MapGet("/", () => "Hello World!");
+            // Active CORS pour la politique déclarée
+            app.UseCors("AllowFrontDev");
+
+            app.UseHttpsRedirection();
+
+            app.UseAuthorization();
+
+            app.MapControllers();
 
             app.Run();
         }
