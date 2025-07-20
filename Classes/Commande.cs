@@ -7,7 +7,7 @@ namespace RestauSimplon.Classes
         public DateTime DateCommande { get; set; }
         [JsonConverter(typeof(JsonStringEnumConverter))]
         public TypeCommande TypeCommande { get; set; }
-        public bool EstTermine { get; set; }
+        public bool EstLivree { get; set; }
         
         public int ClientId { get; set; } //FK vers Client
         public Client Client { get; set; }

@@ -29,14 +29,14 @@ namespace RestauSimplon.Routes
             });
 
             // PUT : /{id}/terminee
-            // -- Modifie le champ "EstTermine" sur true
+            // -- Modifie le champ "EstLivree" sur true
             group.MapPut("/{id}/terminee", async Task<IResult> (int id, RestaurantDb db) =>
             {
                 var commande = await db.Commandes.FindAsync(id);
                 if (commande == null)
                     return TypedResults.NotFound();
 
-                commande.EstTermine = true;
+                commande.EstLivree = true;
                 await db.SaveChangesAsync();
 
                 return TypedResults.Ok(commande);
@@ -97,7 +97,7 @@ namespace RestauSimplon.Routes
                 {
                     DateCommande = aujourdhui,
                     TypeCommande = dto.Type,
-                    EstTermine = false,
+                    EstLivree = false,
                     ClientId = dto.IdClient,
                     Client = client
                 };
@@ -122,7 +122,7 @@ namespace RestauSimplon.Routes
                     Id = commande.Id,
                     DateCommande = commande.DateCommande,
                     TypeCommande = commande.TypeCommande,
-                    EstTermine = commande.EstTermine,
+                    EstLivree = commande.EstLivree,
                     ClientId = commande.ClientId,
                     Articles = commande.CommandeArticles
                         .Select(ca => new CommandeArticleDto
