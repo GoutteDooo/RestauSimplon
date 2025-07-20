@@ -47,6 +47,7 @@ namespace RestauSimplon
                 });
             });
 
+            //ajout d'un fichier seed.sql qui ajoutera des données
             var app = builder.Build();
             using (var scope = app.Services.CreateScope())
             {
