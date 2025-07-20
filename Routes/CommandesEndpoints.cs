@@ -12,6 +12,9 @@ namespace RestauSimplon.Routes
         {
             var group = routes.MapGroup("/commandes");
 
+            /** GET : /
+             * Récupère la liste des commandes par ordre décroissant
+             */
             group.MapGet("", async (RestaurantDb db) =>
             {
                 var commandes = await db.Commandes
@@ -21,6 +24,10 @@ namespace RestauSimplon.Routes
                 return commandes;
             });
 
+            /**
+             * GET : /{id}
+             * Récupère une commande par son id
+             */
             group.MapGet("/{id}", async Task<IResult> (int id, RestaurantDb db) =>
             {
                 return await db.Commandes.FindAsync(id) is Commande commande
@@ -28,9 +35,11 @@ namespace RestauSimplon.Routes
                 : TypedResults.NotFound();
             });
 
-            // PUT : /{id}/terminee
-            // -- Modifie le champ "EstLivree" sur true
-            group.MapPut("/{id}/terminee", async Task<IResult> (int id, RestaurantDb db) =>
+            /**
+             * PUT : /{id}/livree
+             *  Modifie le champ "EstLivree" sur true
+             */
+            group.MapPut("/{id}/livree", async Task<IResult> (int id, RestaurantDb db) =>
             {
                 var commande = await db.Commandes.FindAsync(id);
                 if (commande == null)
@@ -136,9 +145,8 @@ namespace RestauSimplon.Routes
             });
 
 
-            /** /!\                                           /!\
-             * /!\ PROBLEME SUPPRESSION EN CASCADE A REGLER /!\
-             *  /!\                                          /!\
+            /** DELETE : /{id}/supprimer
+             * Supprime la commande dont l'id correspond
              */
 
          group.MapDelete("/{id}/supprimer", async Task<IResult> (int id, RestaurantDb db) =>
@@ -151,6 +159,16 @@ namespace RestauSimplon.Routes
                 }
 
                 return TypedResults.NotFound();
+            });
+
+            /**
+             * GET : /non-livree
+             * Récupère les commandes en attente de livraison
+             */
+            group.MapGet("/non-livree", async Task<IResult> (RestaurantDb db) =>
+            {
+                var commandesLivrees = await db.Commandes.Where(c => !c.EstLivree).ToListAsync();
+                return commandesLivrees.Count > 0 ? TypedResults.Ok(commandesLivrees) : TypedResults.NoContent();
             });
 
             return routes;
