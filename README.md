@@ -77,10 +77,17 @@ RestauSimplon est un restaurant qui souhaite digitaliser la gestion de ses comma
    ouvrez votre powershell ou CMD en administrateur et ajoutez cette ligne
    ```powershell
    dotnet tool install --global dotnet-ef
-3. **Creer la migration dans la console de la solution**
+   
+3. **Installer Postgresql dans votre pc afin de pouvoir faire fonctionner notre projet
+   https://www.postgresql.org/download/
+
+4. **créer un fichier .txt nommé "db-password" pour lier votre bdd et votre projet avec le nom du mdp de votre UserAdmin dans postgresql
+
+5. **Creer la migration dans la console de la solution**
    ```powershell
    dotnet ef migrations add InitialCreate
-4. **Appliquer la migration afin qu'un fichier sqLite soit créé**
+   
+6. **Appliquer la migration afin qu'un fichier sqLite soit créé**
    ```powershell
    dotnet ef database update
 
