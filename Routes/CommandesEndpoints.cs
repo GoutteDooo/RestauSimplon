@@ -14,15 +14,45 @@ namespace RestauSimplon.Routes
 
             /** GET : /
              * Récupère la liste des commandes par ordre décroissant
+             * Le json récupéré ressemble à ça :
+             * {
+             *      "id": 6,
+             *      "dateCommande": "2025-07-20T09:16:24.203242Z",
+             *      "typeCommande": "SurPlace",
+             *      "estLivree": false,
+             *      "clientId": 1,
+             *      "client": {
+                        "idClient":idDuClient,
+             *          "nom": nomDuClient,
+             *          "prenom":prenomDuClient
+             *          }
+             *      "idArticles":[1, 2, 2, 3, 5, 5, 5]
+             * }
              */
             group.MapGet("", async (RestaurantDb db) =>
             {
                 var commandes = await db.Commandes
                     .OrderByDescending(c => c.DateCommande)
+                    .Select(c => new
+                    {
+                        c.Id,
+                        c.DateCommande,
+                        c.TypeCommande,
+                        c.EstLivree,
+                        c.ClientId,
+                        Client = new
+                        {
+                            idClient = c.Client.Id,
+                            nom = c.Client.Nom,
+                            prenom = c.Client.Prenom
+                        },
+                        idArticles = c.CommandeArticles.Select(ca => ca.IdArticle).ToList()
+                    })
                     .ToListAsync();
 
                 return commandes;
             });
+
 
             /**
              * GET : /{id}
@@ -167,8 +197,27 @@ namespace RestauSimplon.Routes
              */
             group.MapGet("/non-livree", async Task<IResult> (RestaurantDb db) =>
             {
-                var commandesLivrees = await db.Commandes.Where(c => !c.EstLivree).ToListAsync();
-                return commandesLivrees.Count > 0 ? TypedResults.Ok(commandesLivrees) : TypedResults.NoContent();
+
+                var commandesNonLivrees = await db.Commandes
+                    .OrderByDescending(c => c.DateCommande)
+                    .Where(c => !c.EstLivree)
+                    .Select(c => new
+                    {
+                        c.Id,
+                        c.DateCommande,
+                        c.TypeCommande,
+                        c.EstLivree,
+                        c.ClientId,
+                        Client = new
+                        {
+                            idClient = c.Client.Id,
+                            nom = c.Client.Nom,
+                            prenom = c.Client.Prenom
+                        },
+                        idArticles = c.CommandeArticles.Select(ca => ca.IdArticle).ToList()
+                    })
+                    .ToListAsync();
+                return commandesNonLivrees.Count > 0 ? TypedResults.Ok(commandesNonLivrees) : TypedResults.NoContent();
             });
 
             return routes;
