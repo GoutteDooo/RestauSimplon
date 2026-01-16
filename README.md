@@ -4,6 +4,7 @@
 
 RestauSimplon est un restaurant qui souhaite digitaliser la gestion de ses commandes, actuellement effectuée sur papier. Ce projet a pour but de créer une **API REST** permettant de gérer les **articles du menu**, les **clients** et les **commandes**, tout en automatisant les calculs et en assurant une meilleure traçabilité.
 
+[Lien Repo front](https://github.com/GoutteDooo/RestauSimplon-Front)
 ---
 
 ## 🎯 Objectifs Fonctionnels
